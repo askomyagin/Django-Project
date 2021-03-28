@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <title>{{ artist.name }}</title>
+    <link href="{% static "css/stylesheet.css" %}" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="header-top">
+            <div class="logo_image">
+                <a href="{% url 'index' %}">
+                    <img src="{% static "images/logo.gif" %}" title="logo" alt="logo">
+                </a>
+            </div>
+            <ul class="header-list">
+                <li><a href="{% url 'index' %}">Главная</a></li>
+                <li><a href="{% url 'performers' %}">Исполнители</a></li>
+                <li><a href="{% url 'textorder' %}">Заказ текста</a></li>
+            </ul>
+        </div>
+    </header>
+
+
+
+    <section class="features" id="markul_info">
+        <div class="features-header">
+            <h1>{{ artist.name }}</h1>
+        </div>
+
+        <div class="conteiner">
+            <div class="foto-star">
+                <img src="/media/{{ artist.main_img }}" alt={{artist.name}} width="450" height="300">
+            </div>
+            <div class="description-star">
+                <p>
+                    {{ artist.large_text }}
+                </p>
+            </div>
+        </div>
+
+
+        <div class="slideshow-container">
+
+            {% if artist.img_slider1 %}
+            <div class="mySlides fade">
+                <img src="/media/{{ artist.img_slider1 }}" style="width:100%">
+            </div>
+            {% endif %}
+
+            {% if artist.img_slider2 %}
+            <div class="mySlides fade">
+                <img src="/media/{{ artist.img_slider2 }}" style="width:100%">
+            </div>
+            {% endif %}
+
+            {% if artist.img_slider3 %}
+            <div class="mySlides fade">
+                <img src="/media/{{ artist.img_slider3 }}" style="width:100%">
+             </div>
+            {% endif %}
+
+
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+        <br>
+
+
+        <div style="text-align:center">
+            {% if artist.img_slider1 %}
+            <span class="dot" onclick="currentSlide(1)"></span>
+            {% endif %}
+            {% if artist.img_slider2 %}
+            <span class="dot" onclick="currentSlide(2)"></span>
+            {% endif %}
+            {% if artist.img_slider3 %}
+            <span class="dot" onclick="currentSlide(3)"></span>
+            {% endif %}
+        </div>
+
+
+        <script src={% static "js/script_slider.js" %}></script>
+
+        <div class="features-header">
+            <h2>Альбомы</h2>
+        </div>
+
+        {% for album in albums %}
+        {% if album.year_of_created != 0000 %}
+        <div class="album">
+            <h3>{{ album.title }}, {{ album.year_of_created }} год</h3>
+            <div class="foto-album">
+                <img src="/media/{{ album.img }}" alt="great_depression" width="175" height="175">
+            </div>
+             <div class="texts">
+                 {%for song in album.get_songs.songs %}
+                <a href="{% url 'song' song.id %}" class="btn-texts">
+                    <p>{{ song.title }}</p>
+                </a>
+                    {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <div class="features-header">
+            <h2>Другие песни</h2>
+        </div>
+
+             <div class="texts">
+                 {%for song in withoutalbum %}
+                <a href="{% url 'song' song.id %}" class="btn-texts">
+                    <p>{{ song.title }}</p>
+                </a>
+                    {% endfor %}
+            </div>
+
+
+    </section>
+
+
+
+    <footer class="main-footer">
+        <div class="footer-conteiner">
+            <div class="logo_image">
+                <img src="{% static  "images/logo.gif" %}" alt="Heartleys">
+            </div>
+
+            <div class="footer-social">
+                <a href="http://vk.com/" target="_blank" class="btn-social btn-social-vk">
+                    <img src="{% static  "images/ico-vk.png" %}" alt="vk">
+                </a>
+                <a href="http://www.facebook.com/" target="_blank" class="btn-social btn-social-fb">
+                    <img src="{% static  "images/ico-fb.png" %}" alt="fb">
+                </a>
+                <a href="https://twitter.com/" target="_blank" class="btn-social btn-social-tw">
+                    <img src="{% static  "images/ico-tw.png" %}" alt="tw">
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

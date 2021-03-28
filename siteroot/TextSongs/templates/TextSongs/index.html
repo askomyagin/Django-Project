@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <title>Heartleys</title>
+    <link href="{% static "css/stylesheet.css" %}" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="header-top">
+            <div class="logo_image">
+                <a href="{% url 'index' %}">
+                    <img src="{% static "images/logo.gif" %}" title="logo" alt="logo">
+                </a>
+            </div>
+            <ul class="header-list">
+                <li class="active-menu"><a href="{% url 'index' %}">Главная</a></li>
+                <li><a href="{% url 'performers' %}">Исполнители</a></li>
+                <li><a href="{% url 'textorder' %}">Заказ текста</a></li>
+            </ul>
+        </div>
+    </header>
+
+
+
+    <section class="features">
+        <div class="features-header">
+            <h1>У нас ты можешь найти большое количество текстов.</h1>
+        </div>
+
+        <div class="hr-index">
+            <hr>
+        </div>
+
+        <div class="features-header">
+            <h1>Вы можете заказать нашу продукцию</h1>
+        </div>
+        <div class="online-shop">
+            <div class="product">
+                <h2>Футболка Markul Great Depression </h2>
+            </div>
+            <div class="foto_product">
+                <img src="{% static  "images/tshirt_markul.jpg" %}" width="200" height="200" alt="Markul">
+            </div>
+            <div class="description">
+                <p>
+                    Цена: 1500 рублей.
+                </p>
+                <form>
+                    <table>
+                        <tr>
+                            <td class="title">
+                                <label for="count_tshirt">Выберете количество:</label>
+                            </td>
+                            <td class="field">
+                                <input type="number" id="count_tshirt" name="count_tshirt" value="0" min="0"
+                                    placeholder="Количество футболок"> штук
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class="online-shop">
+            <div class="product">
+                <h2>Шарф Markul Great Depression</h2>
+            </div>
+            <div class="foto_product">
+                <img src="{% static "images/scarf_markul.jpg" %}" width="200" height="200" alt="Markul">
+            </div>
+            <div class="description">
+                <p>
+                    Цена: 1500 рублей.
+                </p>
+                <form>
+                    <table>
+                        <tr>
+                            <td class="title">
+                                <label for="count_scarf">Выберете количество:</label>
+                            </td>
+                            <td class="field">
+                                <input type="number" id="count_scarf" name="count_scarf" value="0" min="0"
+                                    placeholder="Количество шарфов"> штук
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+
+        <div class="prise-conteiner">
+            <div class="count-prise">
+                Нажмите, чтобы посчитать итоговую стоимость:
+                <input type="button" name="count" class="btn-count" value="Посчитать цену" onclick="addition();">
+            </div>
+            <input type="submit" name="pay" class="btn-pay" value="Оплатить">
+            <div class="price" id="result">
+                0
+            </div>
+            <div class="itog">
+                Итого:
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function addition() {
+            var a = parseInt(document.getElementById('count_scarf').value);
+            var b = parseInt(document.getElementById('count_tshirt').value);
+
+            var c = (a + b) * 1500;
+
+            document.getElementById('result').innerHTML = c;
+        }
+    </script>
+
+    <footer class="main-footer">
+        <div class="footer-conteiner">
+            <div class="logo_image">
+                <img src="{% static  "images/logo.gif" %}" alt="Heartleys">
+            </div>
+
+            <div class="footer-social">
+                <a href="http://vk.com/" target="_blank" class="btn-social btn-social-vk">
+                    <img src="{% static  "images/ico-vk.png" %}" alt="vk">
+                </a>
+                <a href="http://www.facebook.com/" target="_blank" class="btn-social btn-social-fb">
+                    <img src="{% static  "images/ico-fb.png" %}" alt="fb">
+                </a>
+                <a href="https://twitter.com/" target="_blank" class="btn-social btn-social-tw">
+                    <img src="{% static  "images/ico-tw.png" %}" alt="tw">
+                </a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

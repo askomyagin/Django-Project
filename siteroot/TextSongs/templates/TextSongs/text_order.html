@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <title>Заказ текста</title>
+    <link href="{% static "css/stylesheet.css" %}" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="header-top">
+            <div class="logo_image">
+                <a href="{% url 'index' %}">
+                    <img src="{% static "images/logo.gif" %}" title="logo" alt="logo">
+                </a>
+            </div>
+            <ul class="header-list">
+                <li><a href="{% url 'index' %}">Главная</a></li>
+                <li><a href="{% url 'performers' %}">Исполнители</a></li>
+                <li class="active-menu"><a href="{% url 'textorder' %}">Заказ текста</a></li>
+            </ul>
+        </div>
+    </header>
+
+
+    
+    <section class="features">
+        <div class="features-header">
+            <h1>Заказ песни</h1>
+        </div>
+
+        <div class="hr-index">
+            <hr>
+        </div>
+
+        <div class="contact-table">
+            <h3 class="contacts-title">Ты можешь заказать необходимый текст</h3>
+            <form class="contact-form" action="/TextSongs/textorder/create_order" method="POST">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <td class="title">
+                            <label for="name">Имя исполнителя:</label>
+                        </td>
+                        <td class="field">
+                            <input required type="text" id="name" name="name" placeholder="Имя исполнителя">
+                        </td>
+                    </tr>
+                     <tr>
+                        <td class="title">
+                            <label for="name_album">Название альбома:</label>
+                        </td>
+                        <td class="field">
+                            <input required type="text" id="name_album" name="name_album" placeholder="Название альбома">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            <label for="name_song">Название трека:</label>
+                        </td>
+                        <td class="field">
+                            <input required type="text" id="name_song" name="name_song" placeholder="Название трека">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title">
+                            <label for="message">Комментарий:</label>
+                        </td>
+                        <td class="field">
+                            <textarea id="message" name="message"
+                                placeholder="Сообщите все, что считаете нужным (поле необязательно)"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="title"></td>
+                        <td class="field">
+                            <input type="submit" name="form" class="btn-send" value="Отправить">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+        <div class="hr-index">
+            <hr>
+        </div>
+
+        <div class="contact-table">
+            <h3 class="contacts-title">Песни которые уже заказали:</h3>
+            <div class="hr-index">
+                <hr>
+            </div>
+            {% for order in orders %}
+            <ul>
+                <li><p>Имя исполнителя: {{order.artist_name}}</p></li>
+                <p>Название альбома: {{order.album_name}}</p>
+                <p>Название песни: {{order.song_name}}</p>
+                <p>Дата создания заявки: {{order.created_at }}</p>
+            </ul>
+            <div class="hr-index">
+                <hr>
+            </div>
+        {% endfor %}
+        </div>
+
+
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-conteiner">
+            <div class="logo_image">
+                <img src="{% static  "images/logo.gif" %}" alt="Heartleys">
+            </div>
+
+            <div class="footer-social">
+                <a href="http://vk.com/" target="_blank" class="btn-social btn-social-vk">
+                    <img src="{% static  "images/ico-vk.png" %}" alt="vk">
+                </a>
+                <a href="http://www.facebook.com/" target="_blank" class="btn-social btn-social-fb">
+                    <img src="{% static  "images/ico-fb.png" %}" alt="fb">
+                </a>
+                <a href="https://twitter.com/" target="_blank" class="btn-social btn-social-tw">
+                    <img src="{% static  "images/ico-tw.png" %}" alt="tw">
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

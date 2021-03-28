@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8">
+    <title>Исполнители</title>
+    <link href="{% static "css/stylesheet.css" %}" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="header-top">
+            <div class="logo_image">
+                <a href="{% url 'index' %}">
+                    <img src="{% static "images/logo.gif" %}" title="logo" alt="logo">
+                </a>
+            </div>
+            <ul class="header-list">
+                <li><a href="{% url 'index' %}">Главная</a></li>
+                <li class="active-menu"><a href="{% url 'performers' %}">Исполнители</a></li>
+                <li><a href="{% url 'textorder' %}">Заказ текста</a></li>
+            </ul>
+        </div>
+    </header>
+
+
+
+    <section class="features">
+        <div class="features-header">
+            <h1>Исполнители</h1>
+        </div>
+
+        {% for performer in performers %}
+        <div class="star">
+            <div class="name">
+                 <a href="{% url 'perf' performer.name %}" class="name-a">
+                    <h2>{{ performer.name }}</h2>
+                </a>
+            </div>
+            {% if performer.img %}
+                <div class="foto">
+                    <img src="/media/{{ performer.img }}" alt="{{ performer.name }}" width="230" height="175">
+                </div>
+            {% endif %}
+            <div class="description">
+                <p>
+                    {{ performer.small_text }}
+                </p>
+            </div>
+            <a href="{% url 'perf' performer.name %}" class="more">Узнать больше</a>
+        </div>
+        {% endfor %}
+
+    </section>
+
+
+
+    <footer class="main-footer">
+        <div class="footer-conteiner">
+            <div class="logo_image">
+                <img src="{% static  "images/logo.gif" %}" alt="Heartleys">
+            </div>
+
+            <div class="footer-social">
+                <a href="http://vk.com/" target="_blank" class="btn-social btn-social-vk">
+                    <img src="{% static  "images/ico-vk.png" %}" alt="vk">
+                </a>
+                <a href="http://www.facebook.com/" target="_blank" class="btn-social btn-social-fb">
+                    <img src="{% static  "images/ico-fb.png" %}" alt="fb">
+                </a>
+                <a href="https://twitter.com/" target="_blank" class="btn-social btn-social-tw">
+                    <img src="{% static  "images/ico-tw.png" %}" alt="tw">
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
